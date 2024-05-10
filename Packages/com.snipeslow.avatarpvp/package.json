@@ -1,0 +1,19 @@
+{
+  "name": "com.snipeslow.sdk.avatarpvp",
+  "displayName": "Snipeslow Avatar PVP",
+  "version": "0.1.0",
+  "description" : "Tools for Avatar PVP Creation",
+  "dependencies": {},
+  "gitDependencies": {},
+  "vpmDependencies": {
+    "com.vrchat.base": "3.5.2",
+    "com.snipeslow.combatlink": "0.5.0"
+  },
+  "author": {
+    "name": "Snipeslow",
+    "email": "snipeslow.prefabs@gmail.com",
+    "url": ""
+  },
+  "legacyFolders": {},
+  "legacyFiles": {}
+}

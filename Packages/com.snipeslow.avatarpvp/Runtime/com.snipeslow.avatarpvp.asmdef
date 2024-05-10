@@ -1,0 +1,21 @@
+{
+    "name": "combat.snipeslow.avatarpvp",
+    "rootNamespace": "",
+    "references": [
+        "VRC.SDKBase",
+        "VRC.Udon",
+        "UdonSharp.Runtime",
+        "UdonSharp.Lib",
+        "com.snipeslow.combatlink",
+        "VRC.Udon.Serialization.OdinSerializer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
