@@ -7,7 +7,7 @@
   "gitDependencies": {},
   "vpmDependencies": {
     "com.vrchat.base": "3.5.2",
-    "com.snipeslow.combatlink": "0.5.0"
+    "com.snipeslow.sdk.combatlink": "0.5.0"
   },
   "author": {
     "name": "Snipeslow",
