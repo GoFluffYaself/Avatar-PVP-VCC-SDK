@@ -5,6 +5,6 @@
 	"unity" : "2022.3",
   "description" : "Tools for Avatar PVP Creation",
   "vpmDependencies": {
-    "com.snipeslow.sdk.combatlink": "0.5.4"
+    "com.snipeslow.sdk.combatlink": "0.5.5"
   }
 }
