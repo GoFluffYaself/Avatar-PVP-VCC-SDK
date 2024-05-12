@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: SAPVP_Manager
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 0474e7fe33f9516469b7f77aa345e39f,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 2f947435959f6d64fbf057bb2236dca8,
     type: 2}
   udonAssembly: 
   assemblyError: 
@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: SAPVP_Plugin[], Assembly-CSharp
+      Data: SAPVP_Plugin[], com.snipeslow.sdk.avatarpvp
     - Name: 
       Entry: 8
       Data: 
@@ -620,7 +620,7 @@ MonoBehaviour:
       Data: 35|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: CombatLinkManager, Assembly-CSharp
+      Data: CombatLinkManager, com.snipeslow.combatlink
     - Name: 
       Entry: 8
       Data: 
@@ -734,7 +734,7 @@ MonoBehaviour:
       Data: 42|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: SAPVP_Player, Assembly-CSharp
+      Data: SAPVP_Player, com.snipeslow.sdk.avatarpvp
     - Name: 
       Entry: 8
       Data: 
@@ -1376,7 +1376,7 @@ MonoBehaviour:
       Data: 77|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: SAPVP_ClassSet[], Assembly-CSharp
+      Data: SAPVP_ClassSet[], com.snipeslow.sdk.avatarpvp
     - Name: 
       Entry: 8
       Data: 
@@ -1484,7 +1484,7 @@ MonoBehaviour:
       Data: 83|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: SAPVP_Class[], Assembly-CSharp
+      Data: SAPVP_Class[], com.snipeslow.sdk.avatarpvp
     - Name: 
       Entry: 8
       Data: 

@@ -1,5 +1,5 @@
 {
-    "name": "combat.snipeslow.avatarpvp",
+    "name": "com.snipeslow.sdk.avatarpvp",
     "rootNamespace": "",
     "references": [
         "VRC.SDKBase",

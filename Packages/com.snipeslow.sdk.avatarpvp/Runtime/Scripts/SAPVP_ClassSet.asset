@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: SAPVP_ClassSet
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: cc9396e6d46bead41a142c2021a31288,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 0e67490bd1c48c4469cbf55849c874c5,
     type: 2}
   udonAssembly: 
   assemblyError: 
@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: SAPVP_Manager, Assembly-CSharp
+      Data: SAPVP_Manager, com.snipeslow.sdk.avatarpvp
     - Name: 
       Entry: 8
       Data: 

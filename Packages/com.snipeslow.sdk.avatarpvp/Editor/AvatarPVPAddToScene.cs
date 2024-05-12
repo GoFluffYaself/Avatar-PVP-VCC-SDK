@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class AvatarPVPAddToScene
 {
@@ -10,7 +9,7 @@ public class AvatarPVPAddToScene
     [MenuItem("Avatar PVP SDK/Add Avatar PVP world prefab into scene")]
     static void Init()
     {
-        var GO = AssetDatabase.LoadAssetAtPath<GameObject>("Packages/com.snipeslow.avatarpvp/Runtime/Prefabs/SAPVP Manager.prefab");
+        var GO = AssetDatabase.LoadAssetAtPath<GameObject>("Packages/com.snipeslow.sdk.avatarpvp/Runtime/Prefabs/SAPVP Manager.prefab");
         if(GO != null)
         {
             Selection.activeObject = PrefabUtility.InstantiatePrefab(GO);

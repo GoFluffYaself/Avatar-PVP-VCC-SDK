@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: SAPVP_PushBox
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 7e0bde58a83e90743a8f46aca6f3cca7,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: d68fe3d4879653b4ba92d597e32e8529,
     type: 2}
   udonAssembly: 
   assemblyError: 
@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: SAPVP_Player, Assembly-CSharp
+      Data: SAPVP_Player, com.snipeslow.sdk.avatarpvp
     - Name: 
       Entry: 8
       Data: 
