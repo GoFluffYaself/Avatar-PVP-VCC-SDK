@@ -1,10 +1,11 @@
 ﻿
-using UdonSharp;
 using UnityEngine;
+#if UDONSHARP
 using VRC.SDK3.Components;
 using VRC.SDKBase;
 using VRC.Udon;
 using VRC.Udon.Common;
+using UdonSharp;
 
 public class SAPVP_Player : UdonSharpBehaviour
 {
@@ -695,3 +696,8 @@ public class SAPVP_Player : UdonSharpBehaviour
         RepairTime = 0;
     }
 }
+#else
+public class SAPVP_Player : MonoBehaviour
+{
+}
+#endif

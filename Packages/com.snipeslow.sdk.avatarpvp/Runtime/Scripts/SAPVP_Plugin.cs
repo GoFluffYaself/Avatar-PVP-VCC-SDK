@@ -1,10 +1,11 @@
 ﻿
 
-using UdonSharp;
 using UnityEngine;
+#if UDONSHARP
 using VRC.SDK3.Data;
 using VRC.SDKBase;
 using VRC.Udon;
+using UdonSharp;
 
 public class SAPVP_Plugin : UdonSharpBehaviour
 {
@@ -113,3 +114,8 @@ public class SAPVP_Plugin : UdonSharpBehaviour
         return AllowedToManage;
     }
 }
+#else
+public class SAPVP_Plugin : MonoBehaviour
+{
+}
+#endif

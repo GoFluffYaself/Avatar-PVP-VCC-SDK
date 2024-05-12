@@ -1,8 +1,9 @@
 ﻿
-using UdonSharp;
 using UnityEngine;
+#if UDONSHARP
 using VRC.SDKBase;
 using VRC.Udon;
+using UdonSharp;
 using UnityEngine.UI;
 
 public class SAPVP_ClassSet : UdonSharpBehaviour
@@ -33,3 +34,8 @@ public class SAPVP_ClassSet : UdonSharpBehaviour
         ClassSetNameText.text = ClassSetName;
     }
 }
+#else
+public class SAPVP_ClassSet : MonoBehaviour
+{
+}
+#endif

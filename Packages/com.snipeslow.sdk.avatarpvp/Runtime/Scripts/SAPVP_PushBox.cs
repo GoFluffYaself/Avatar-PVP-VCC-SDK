@@ -1,6 +1,7 @@
 ﻿
-using UdonSharp;
 using UnityEngine;
+#if UDONSHARP
+using UdonSharp;
 using VRC.SDKBase;
 using VRC.Udon;
 
@@ -26,3 +27,8 @@ public class SAPVP_PushBox : UdonSharpBehaviour
         }
     }
 }
+#else
+public class SAPVP_PushBox : MonoBehaviour
+{
+}
+#endif

@@ -1,9 +1,9 @@
 ﻿
-using UdonSharp;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+#if UDONSHARP
 using VRC.SDKBase;
 using VRC.Udon;
+using UdonSharp;
 
 public class SAPVP_HitBox : UdonSharpBehaviour
 {
@@ -92,3 +92,8 @@ public class SAPVP_HitBox : UdonSharpBehaviour
         gameObject.layer = LayerIteration;
     }
 }
+#else
+public class SAPVP_HitBox : MonoBehaviour
+{
+}
+#endif

@@ -1,15 +1,12 @@
 ﻿
-using UdonSharp;
 using UnityEngine;
-using VRC.Core.Pool;
+#if UDONSHARP
 using VRC.SDK3.Components;
 using VRC.SDK3.Data;
 using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
-using VRC.Udon;
 using VRC.Udon.Common.Interfaces;
-using VRC.Udon.Wrapper.Modules;
-using static VRC.SDKBase.VRCPlayerApi;
+using UdonSharp;
 #if !UNITY_ANDROID
 //TODO: CLEANUP TO NAMKING CONVENTION
 [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
@@ -510,4 +507,9 @@ public class SAPVP_Manager : UdonSharpBehaviour
     {
         Debug.LogWarning("WARNING: SAPVP has been disabled on Android platforms, please build only for windows.");
     }
+#endif
+#else
+public class SAPVP_Manager : MonoBehaviour
+{
+}
 #endif

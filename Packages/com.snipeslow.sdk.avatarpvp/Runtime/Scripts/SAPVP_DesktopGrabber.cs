@@ -1,6 +1,7 @@
 ﻿
-using UdonSharp;
 using UnityEngine;
+#if UDONSHARP
+using UdonSharp;
 using VRC.SDK3.Components;
 using VRC.SDKBase;
 using VRC.Udon;
@@ -43,3 +44,8 @@ public class SAPVP_DesktopGrabber : UdonSharpBehaviour
         }
     }
 }
+#else
+public class SAPVP_DesktopGrabber : MonoBehaviour
+{
+}
+#endif

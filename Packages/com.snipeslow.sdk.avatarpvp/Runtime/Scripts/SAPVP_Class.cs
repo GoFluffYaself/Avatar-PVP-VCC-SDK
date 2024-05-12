@@ -1,6 +1,7 @@
 ﻿
 using System;
 using UnityEngine;
+#if UDONSHARP
 using UnityEngine.UI;
 using VRC.SDK3.Components;
 using VRC.SDK3.Data;
@@ -389,3 +390,9 @@ public class SAPVP_Class : UdonSharpBehaviour
         }
     }
 }
+#else
+]
+public class SAPVP_Class : MonoBehaviour
+{
+}
+#endif
