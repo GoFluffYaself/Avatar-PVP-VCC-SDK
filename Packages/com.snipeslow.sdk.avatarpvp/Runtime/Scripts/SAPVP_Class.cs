@@ -391,7 +391,6 @@ public class SAPVP_Class : UdonSharpBehaviour
     }
 }
 #else
-]
 public class SAPVP_Class : MonoBehaviour
 {
 }
