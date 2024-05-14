@@ -41,6 +41,7 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
         if (TargetParticleSystem)
         {
             var col = TargetParticleSystem.collision;
+            col.enabled = true;
             col.sendCollisionMessages = true;
             col.mode = ParticleSystemCollisionMode.Collision3D;
             col.type = ParticleSystemCollisionType.World;
