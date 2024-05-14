@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VRC.SDKBase;
+using UnityEngine.UIElements;
+using System;
+
+
 [RequireComponent(typeof(ParticleSystem))]
 public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour, IEditorOnly
 {
@@ -32,7 +36,12 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
     public bool HealOverTime;
     public bool Repair;
     public bool Burn;
-    bool Process()
+    private void Start()
+    {
+        Process();
+    }
+    [ContextMenu("[SAPVP] Compile settings into particle")]
+    public bool Process()
     {
         if(!TargetParticleSystem)
         {
@@ -40,11 +49,16 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
         }
         if (TargetParticleSystem)
         {
+#if UNITY_EDITOR
+            UnityEngine.Object[] ToRecord = { TargetParticleSystem, this };
+            UnityEditor.Undo.RecordObjects(ToRecord, "Avatar PVP Particle Config Compile: " + TargetParticleSystem.name);
+#endif
             var col = TargetParticleSystem.collision;
             col.enabled = true;
             col.sendCollisionMessages = true;
             col.mode = ParticleSystemCollisionMode.Collision3D;
             col.type = ParticleSystemCollisionType.World;
+            col.quality = ParticleSystemCollisionQuality.High;
             int CollisionBitMask = 0;
 
             if (CollideWithDefaultLayer)
@@ -118,7 +132,11 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
                 CollisionBitMask |= (1 << 31);
             }
             col.collidesWith = CollisionBitMask;
-
+#if UNITY_EDITOR
+            UnityEditor.Undo.DestroyObjectImmediate(this);
+#else
+            DestroyImmediate(this);
+#endif
             /*if(clip)
             {
                 clip.set
@@ -129,6 +147,7 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
         return false;
 
     }
+    
     bool IPreprocessCallbackBehaviour.OnPreprocess()
     {
         return Process();
