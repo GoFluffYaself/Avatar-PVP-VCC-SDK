@@ -43,7 +43,7 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
     [ContextMenu("[SAPVP] Compile settings into particle")]
     public bool Process()
     {
-        if(!TargetParticleSystem)
+        if (!TargetParticleSystem)
         {
             TargetParticleSystem = GetComponent<ParticleSystem>();
         }
@@ -147,8 +147,8 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
         return false;
 
     }
-    
-    bool IPreprocessCallbackBehaviour.OnPreprocess()
+
+    public bool OnPreprocess()
     {
         return Process();
 
