@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VRC.SDKBase;
-using UnityEngine.UIElements;
-using System;
+using System.Linq;
 
 
-[RequireComponent(typeof(ParticleSystem))]
-public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour, IEditorOnly
+[System.Serializable]
+public struct ParticleObjects
 {
-    public ParticleSystem TargetParticleSystem;
+    [SerializeField]
+    public ParticleSystem Target;
 
-    /*[Header("Animator Config")]
-    public AnimationClip clip
-    public bool Local = true;
-    public bool Remote = true;*/
+
+    public bool PVPEnabled;
 
     [Header("Non-PVP collisions")]
     public bool CollideWithDefaultLayer;
@@ -36,115 +34,135 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
     public bool HealOverTime;
     public bool Repair;
     public bool Burn;
+
+
+}
+
+public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour, IEditorOnly
+{
+    public ParticleObjects[] TargetParticleObjects;
+
     private void Start()
     {
         Process();
     }
-    [ContextMenu("[SAPVP] Compile settings into particle")]
-    public bool Process()
+    [ContextMenu("[SAPVP] Compile settings into Particle and delete component")]
+    void contextMenuCompileDelete()
     {
-        if (!TargetParticleSystem)
-        {
-            TargetParticleSystem = GetComponent<ParticleSystem>();
-        }
-        if (TargetParticleSystem)
-        {
+        Process();
 #if UNITY_EDITOR
-            UnityEngine.Object[] ToRecord = { TargetParticleSystem, this };
-            UnityEditor.Undo.RecordObjects(ToRecord, "Avatar PVP Particle Config Compile: " + TargetParticleSystem.name);
-#endif
-            var col = TargetParticleSystem.collision;
-            col.enabled = true;
-            col.sendCollisionMessages = true;
-            col.mode = ParticleSystemCollisionMode.Collision3D;
-            col.type = ParticleSystemCollisionType.World;
-            col.quality = ParticleSystemCollisionQuality.High;
-            int CollisionBitMask = 0;
-
-            if (CollideWithDefaultLayer)
-            {
-                CollisionBitMask |= (1 << 0);
-            }
-
-            if (CollideWithRemotePlayer)
-            {
-                CollisionBitMask |= (1 << 9);
-            }
-            if (CollideWithLocalPlayer)
-            {
-                CollisionBitMask |= (1 << 10);
-            }
-
-            if (Cancel)
-            {
-                CollisionBitMask |= (1 << 14);
-            }
-            if (Electric)
-            {
-                CollisionBitMask |= (1 << 15);
-            }
-            if (Slow)
-            {
-                CollisionBitMask |= (1 << 16);
-            }
-            if (Damage)
-            {
-                CollisionBitMask |= (1 << 17);
-            }
-            if (Ice)
-            {
-                CollisionBitMask |= (1 << 22);
-            }
-            if (DamageOverTime)
-            {
-                CollisionBitMask |= (1 << 23);
-            }
-            if (Stun)
-            {
-                CollisionBitMask |= (1 << 24);
-            }
-            if (Poison)
-            {
-                CollisionBitMask |= (1 << 25);
-            }
-            if (Speed)
-            {
-                CollisionBitMask |= (1 << 26);
-            }
-            if (PushRad)
-            {
-                CollisionBitMask |= (1 << 27);
-            }
-            if (Shield)
-            {
-                CollisionBitMask |= (1 << 28);
-            }
-            if (HealOverTime)
-            {
-                CollisionBitMask |= (1 << 29);
-            }
-            if (Repair)
-            {
-                CollisionBitMask |= (1 << 30);
-            }
-            if (Burn)
-            {
-                CollisionBitMask |= (1 << 31);
-            }
-            col.collidesWith = CollisionBitMask;
-#if UNITY_EDITOR
-            UnityEditor.Undo.DestroyObjectImmediate(this);
+        UnityEditor.Undo.DestroyObjectImmediate(this);
 #else
             DestroyImmediate(this);
 #endif
-            /*if(clip)
-            {
-                clip.set
-            }*/
-            return true;
+    }
+
+    [ContextMenu("[SAPVP] Compile settings into Particle")]
+    void contextMenuCompile()
+    {
+        Process();
+    }
+
+    public bool Process()
+    {
+#if UNITY_EDITOR
+        List<UnityEngine.Object> ToRecordList = new List<UnityEngine.Object>();
+        foreach (var obj in TargetParticleObjects)
+        {
+            ToRecordList.Add(obj.Target);
         }
-        Debug.LogError("Particle invalid! Aborting SDK upload!");
-        return false;
+        UnityEditor.Undo.RecordObjects(ToRecordList.ToArray(), "Avatar PVP Particle Config Compile");
+#endif
+        foreach (var TargetParticleObject in TargetParticleObjects)
+        {
+            if (!TargetParticleObject.Target)
+            {
+                continue;
+            }
+            if (TargetParticleObject.Target)
+            {
+                var col = TargetParticleObject.Target.collision;
+                col.enabled = true;
+                col.sendCollisionMessages = TargetParticleObject.PVPEnabled;
+                col.mode = ParticleSystemCollisionMode.Collision3D;
+                col.type = ParticleSystemCollisionType.World;
+                col.quality = ParticleSystemCollisionQuality.High;
+                int CollisionBitMask = 0;
+
+                if (TargetParticleObject.CollideWithDefaultLayer)
+                {
+                    CollisionBitMask |= (1 << 0);
+                }
+
+                if (TargetParticleObject.CollideWithRemotePlayer)
+                {
+                    CollisionBitMask |= (1 << 9);
+                }
+                if (TargetParticleObject.CollideWithLocalPlayer)
+                {
+                    CollisionBitMask |= (1 << 10);
+                }
+
+                if (TargetParticleObject.Cancel)
+                {
+                    CollisionBitMask |= (1 << 14);
+                }
+                if (TargetParticleObject.Electric)
+                {
+                    CollisionBitMask |= (1 << 15);
+                }
+                if (TargetParticleObject.Slow)
+                {
+                    CollisionBitMask |= (1 << 16);
+                }
+                if (TargetParticleObject.Damage)
+                {
+                    CollisionBitMask |= (1 << 17);
+                }
+                if (TargetParticleObject.Ice)
+                {
+                    CollisionBitMask |= (1 << 22);
+                }
+                if (TargetParticleObject.DamageOverTime)
+                {
+                    CollisionBitMask |= (1 << 23);
+                }
+                if (TargetParticleObject.Stun)
+                {
+                    CollisionBitMask |= (1 << 24);
+                }
+                if (TargetParticleObject.Poison)
+                {
+                    CollisionBitMask |= (1 << 25);
+                }
+                if (TargetParticleObject.Speed)
+                {
+                    CollisionBitMask |= (1 << 26);
+                }
+                if (TargetParticleObject.PushRad)
+                {
+                    CollisionBitMask |= (1 << 27);
+                }
+                if (TargetParticleObject.Shield)
+                {
+                    CollisionBitMask |= (1 << 28);
+                }
+                if (TargetParticleObject.HealOverTime)
+                {
+                    CollisionBitMask |= (1 << 29);
+                }
+                if (TargetParticleObject.Repair)
+                {
+                    CollisionBitMask |= (1 << 30);
+                }
+                if (TargetParticleObject.Burn)
+                {
+                    CollisionBitMask |= (1 << 31);
+                }
+                col.collidesWith = CollisionBitMask;
+            }
+        }
+        return true;
 
     }
 
