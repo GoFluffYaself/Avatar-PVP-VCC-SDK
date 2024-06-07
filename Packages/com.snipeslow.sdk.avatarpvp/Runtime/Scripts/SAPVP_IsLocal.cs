@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if !UDON 
 using VRC.SDK3.Avatars.Components;
 using VRC.SDKBase;
 
@@ -103,3 +104,9 @@ public class SAPVP_IsLocal : MonoBehaviour, IPreprocessCallbackBehaviour, IEdito
         return currentPath;
     }
 }
+#else
+
+public class SAPVP_IsLocal : MonoBehaviour
+{
+}
+#endif
