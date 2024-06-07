@@ -1,7 +1,7 @@
 {
   "name": "com.snipeslow.sdk.avatarpvp",
   "displayName": "Snipeslow Avatar PVP",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "unity": "2022.3",
   "description": "Tools for Avatar PVP Creation",
   "vpmDependencies": {
