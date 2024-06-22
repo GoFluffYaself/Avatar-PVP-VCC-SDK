@@ -1,8 +1,16 @@
+#if !SAPVP_VRCSDK3_AVATARS && !SAPVP_VRCSDK3_WORLDS && VRC_SDK_VRCSDK3
+#if UDON
+#define SAPVP_VRCSDK3_WORLDS
+#else
+#define SAPVP_VRCSDK3_AVATARS
+#endif
+#endif
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-#if !UDON 
+
+#if SAPVP_VRCSDK3_AVATARS 
 using VRC.SDK3.Avatars.Components;
 using VRC.SDKBase;
 
