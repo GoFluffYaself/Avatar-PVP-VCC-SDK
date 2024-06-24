@@ -10,7 +10,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRC.SDKBase;
 using System.Linq;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [System.Serializable]
 public struct ParticleObjects
@@ -18,6 +20,8 @@ public struct ParticleObjects
     [SerializeField]
     public ParticleSystem Target;
 
+    [SerializeField]
+    public ParticleSystem SingleShotTrigger;
 
     public bool PVPEnabled;
 
@@ -47,14 +51,79 @@ public struct ParticleObjects
 
 public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour, IEditorOnly
 {
+    
     public ParticleObjects[] TargetParticleObjects;
+#if UNITY_EDITOR
+    [MenuItem("GameObject/Avatar PVP SDK/Create Single Shot Trigger", false, 20)]
+    public static void ContextMenu_AddSingleShot(MenuCommand menuCommand){
+        GameObject go = new GameObject("SingleShotTrigger");
+        GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
+        ParticleSystem ps = go.AddComponent<ParticleSystem>();
+        ParticleSystem.MainModule main = ps.main;
+        main.loop = false;
+        main.startLifetime = 0.1f;
+        main.playOnAwake = true;
+        main.startSpeed = 0.01f;
+        ParticleSystem.EmissionModule emissionModule = ps.emission;
+        emissionModule.enabled = true;
+        emissionModule.rateOverTime = 0;
+        emissionModule.rateOverDistance = 0;
+        ParticleSystem.Burst burst = new ParticleSystem.Burst(0, 1, 1, 0.01f);
+        emissionModule.SetBursts(new ParticleSystem.Burst[] { burst });
+        ParticleSystem.ShapeModule shape = ps.shape;
+        shape.enabled = false;
+        
+        Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
 
+        Selection.activeObject = go;
+    }
+    [MenuItem("CONTEXT/ParticleSystem/Avatar PVP SDK/Make Single Shot Trigger", false, 15)]
+    public static void ContextMenu_MakeSingleShot(MenuCommand menuCommand)
+    {
+        GameObject pgo = (menuCommand.context as ParticleSystem).transform.parent.gameObject;
+        ParticleSystem subps = (menuCommand.context as ParticleSystem);
+        if (!pgo)
+        {
+            Debug.LogWarning("Please parent this object before using this command.", (menuCommand.context as ParticleSystem).gameObject);
+            return;
+        }
+        ParticleSystem.EmissionModule subEmission = subps.emission;
+        subEmission.enabled = false;
+        subEmission.rateOverTime = 0;
+        subEmission.rateOverDistance = 0;
+        ParticleSystem.Burst subburst = new ParticleSystem.Burst(0, 1, 1, 0.01f);
+        subEmission.SetBursts(new ParticleSystem.Burst[] { subburst });
+        GameObject go = new GameObject((menuCommand.context as ParticleSystem).gameObject.name);
+        (menuCommand.context as ParticleSystem).gameObject.name = (menuCommand.context as ParticleSystem).gameObject.name+"_SingleShot";
+        GameObjectUtility.SetParentAndAlign(go, pgo);
+        ParticleSystem ps = go.AddComponent<ParticleSystem>();
+        ParticleSystem.MainModule main = ps.main;
+        main.loop = false;
+        main.startLifetime = 0.1f;
+        main.playOnAwake = true;
+        main.startSpeed = 0.01f;
+        ParticleSystem.EmissionModule emissionModule = ps.emission;
+        emissionModule.enabled = true;
+        emissionModule.rateOverTime = 0;
+        emissionModule.rateOverDistance = 0;
+        ParticleSystem.Burst burst = new ParticleSystem.Burst(0, 1, 1, 0.01f);
+        emissionModule.SetBursts(new ParticleSystem.Burst[] { burst });
+        ParticleSystem.ShapeModule shape = ps.shape;
+        shape.enabled = false;
+        ParticleSystem.SubEmittersModule se = ps.subEmitters;
+        se.AddSubEmitter((menuCommand.context as ParticleSystem), ParticleSystemSubEmitterType.Birth, ParticleSystemSubEmitterProperties.InheritNothing);
+        se.enabled = true;
+        Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+
+        Selection.activeObject = go;
+    }
+#endif
     private void Start()
     {
         Process();
     }
     [ContextMenu("[SAPVP] Compile settings into Particle and delete component")]
-    void contextMenuCompileDelete()
+    void ContextMenu_CompileDelete()
     {
         Process();
 #if UNITY_EDITOR
@@ -65,7 +134,7 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
     }
 
     [ContextMenu("[SAPVP] Compile settings into Particle")]
-    void contextMenuCompile()
+    void ContextMenu_Compile()
     {
         Process();
     }
@@ -85,6 +154,12 @@ public class SAPVP_ParticleConfig : MonoBehaviour, IPreprocessCallbackBehaviour,
             if (!TargetParticleObject.Target)
             {
                 continue;
+            }
+            if(TargetParticleObject.SingleShotTrigger)
+            {
+                ParticleSystem.SubEmittersModule se = TargetParticleObject.SingleShotTrigger.subEmitters;
+                se.AddSubEmitter(TargetParticleObject.Target, ParticleSystemSubEmitterType.Birth,ParticleSystemSubEmitterProperties.InheritNothing);
+                se.enabled = true;
             }
             if (TargetParticleObject.Target)
             {
