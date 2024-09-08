@@ -2697,6 +2697,7 @@ MonoBehaviour:
   m_Script: {fileID: -1533785930, guid: 661092b4961be7145bfbe56e1e62337b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowFocusView: 1
 --- !u!1 &4564784723576332328
 GameObject:
   m_ObjectHideFlags: 0
@@ -3850,10 +3851,44 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 4564784724086067307}
   Plugins: []
-  PrefabVersion: 0.1.0
-  DatabaseVersion: 
   ClassSet: Default
   urlInputField: {fileID: 9045736100567935525}
+  DefaultJSONData: '{   "version": "0.2.13",   "ClassSets": {     "Default": {      
+    "DisplayName": "Default"     },     "Competitive": {       "DisplayName": "Competitive"    
+    },     "Wargames": {       "DisplayName": "Wargames"     },     "CrabsVsRoombas":
+    {       "DisplayName": "Crabs Vs Roombas"     }   },   "Classes": {     "Default":
+    [       {         "Assault": {           "DisplayName": "Assault",          
+    "ChestDMG": 200,           "ChestDMGShieldRatio": 0.5,           "HeadDMG": 1900,          
+    "HeadDMGShieldRatio": 0.75,           "DOTDMG": 200,           "DOTEffectRatio":
+    0.8,           "HOTAmount": 250,           "ElectricDMG": 80,           "FireDMG":
+    280,           "PoisonDMG": 16,           "IceDMG": 80,           "IceEffectRatio":
+    0.4,           "StunEffectRatio": 0.1,           "SlowEffectRatio": 0.6,          
+    "SpeedEffectRatio": 1.8,           "RepairAmount": -70,           "RadRate":
+    2,           "PushPower": 16,           "JumpSpeed": 5,           "DoubleJumpSpeed":
+    0,           "DashSpeed": 0,           "RunSpeed": 5,           "WalkSpeed":
+    3,           "StrafeSpeed": 3,           "Tags": [             "Default",            
+    "Assault"           ]         }       },       {         "Tank": {          
+    "DisplayName": "Tank",           "ChestDMG": 80,           "ChestDMGShieldRatio":
+    0.5,           "HeadDMG": 100,           "HeadDMGShieldRatio": 0.75,          
+    "DOTDMG": 160,           "DOTEffectRatio": 0.8,           "HOTAmount": 180,          
+    "ElectricDMG": 10,           "FireDMG": 160,           "PoisonDMG": 13,          
+    "IceDMG": 50,           "IceEffectRatio": 0.4,           "StunEffectRatio": 0.1,          
+    "SlowEffectRatio": 0.6,           "SpeedEffectRatio": 1.8,           "RepairAmount":
+    -28,           "RadRate": 1.25,           "PushPower": 8,           "JumpSpeed":
+    4,           "DoubleJumpSpeed": 0,           "DashSpeed": 8,           "RunSpeed":
+    4,           "WalkSpeed": 3,           "StrafeSpeed": 3,           "Tags": [            
+    "Default",             "Tank"           ]         }       },       {        
+    "Assassin": {           "DisplayName": "Assassin",           "ChestDMG": 500,          
+    "ChestDMGShieldRatio": 0.5,           "HeadDMG": 2000,           "HeadDMGShieldRatio":
+    0.75,           "DOTDMG": 200,           "DOTEffectRatio": 0.8,           "HOTAmount":
+    250,           "ElectricDMG": 100,           "FireDMG": 300,           "PoisonDMG":
+    25,           "IceDMG": 80,           "IceEffectRatio": 0.4,           "StunEffectRatio":
+    0.1,           "SlowEffectRatio": 0.6,           "SpeedEffectRatio": 2,          
+    "RepairAmount": -175,           "RadRate": 2.5,           "PushPower": 32,          
+    "JumpSpeed": 8,           "DoubleJumpSpeed": 4,           "DashSpeed": 3,          
+    "RunSpeed": 8,           "WalkSpeed": 6,           "StrafeSpeed": 6,          
+    "Tags": [             "Default",             "Assassin"           ]         }      
+    }     ]   } }'
   HudTransform: {fileID: 4094870440725753490}
   PlayerPool: {fileID: 4564784722778707718}
   CombatLinkManager: {fileID: 7026541512845735758}

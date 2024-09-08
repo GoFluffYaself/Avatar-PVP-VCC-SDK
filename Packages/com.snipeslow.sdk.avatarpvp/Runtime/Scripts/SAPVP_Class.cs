@@ -33,7 +33,9 @@ public class SAPVP_Class : UdonSharpBehaviour
         if (!Manager)
             return;
         Manager.SetClass(ClassIndex);
-
+        Manager.LocalPlayer._Health = (Manager.LocalPlayer._Health/ Manager.LocalPlayer._MaxHealth) * MaxHealth;
+        Manager.LocalPlayer._MaxHealth = MaxHealth;
+        Networking.LocalPlayer.SetManualAvatarScalingAllowed(AllowScaling);
     }
     public override void OnPreSerialization()
     {
@@ -54,6 +56,7 @@ public class SAPVP_Class : UdonSharpBehaviour
             if (StatsText)
             {
                 StatsText.text = DisplayName+"\n";
+                StatsText.text += "Allow Scaling:" + AllowScaling + "\n";
                 StatsText.text += "Sprint speed: " + RunSpeed + "\n";
                 StatsText.text += "Run/Walk speed: " + WalkSpeed + "\n";
                 StatsText.text += "Strafe speed: " + StrafeSpeed + "\n";
@@ -103,6 +106,18 @@ public class SAPVP_Class : UdonSharpBehaviour
         }
     }
 
+    public float MaxHealth
+    {
+        get
+        {
+            float currentValue = 2000;
+            if (ClassStats.TryGetValue("MaxHealth", TokenType.Double, out DataToken tempToken))
+            {
+                currentValue = (float)tempToken.Double;
+            }
+            return currentValue;
+        }
+    }
     public float ChestDMG
     {
         get
@@ -391,6 +406,18 @@ public class SAPVP_Class : UdonSharpBehaviour
             if (ClassStats.TryGetValue("StrafeSpeed", TokenType.Double, out DataToken tempToken))
             {
                 currentValue = (float)tempToken.Double;
+            }
+            return currentValue;
+        }
+    }
+    public bool AllowScaling
+    {
+        get
+        {
+            bool currentValue = false;
+            if (ClassStats.TryGetValue("AllowScale", TokenType.Double, out DataToken tempToken))
+            {
+                currentValue = tempToken.Boolean;
             }
             return currentValue;
         }
