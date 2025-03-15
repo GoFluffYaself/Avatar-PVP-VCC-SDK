@@ -56,7 +56,8 @@ public class SAPVP_Class : UdonSharpBehaviour
             if (StatsText)
             {
                 StatsText.text = DisplayName+"\n";
-                StatsText.text += "Allow Scaling:" + AllowScaling + "\n";
+                StatsText.text += "Max Health: " + MaxHealth + "\n";
+                StatsText.text += "Allow Scaling: " + AllowScaling + "\n";
                 StatsText.text += "Sprint speed: " + RunSpeed + "\n";
                 StatsText.text += "Run/Walk speed: " + WalkSpeed + "\n";
                 StatsText.text += "Strafe speed: " + StrafeSpeed + "\n";

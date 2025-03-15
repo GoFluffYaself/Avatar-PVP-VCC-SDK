@@ -13,7 +13,6 @@ using VRC.SDK3.StringLoading;
 using VRC.SDKBase;
 using VRC.Udon.Common.Interfaces;
 using UdonSharp;
-#if !UNITY_ANDROID
 //TODO: CLEANUP TO NAMKING CONVENTION
 [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
 public class SAPVP_Manager : UdonSharpBehaviour
@@ -504,13 +503,6 @@ public class SAPVP_Manager : UdonSharpBehaviour
         
     }
 }
-#else
-    [UnityEditor.InitializeOnLoadMethod]
-    static void PCOnlyCheck()
-    {
-        Debug.LogWarning("WARNING: SAPVP has been disabled on Android platforms, please build only for windows.");
-    }
-#endif
 #else
 public class SAPVP_Manager : MonoBehaviour
 {
